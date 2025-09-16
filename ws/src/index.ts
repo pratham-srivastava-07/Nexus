@@ -1,6 +1,7 @@
 import express from "express"
 import { WebSocketServer } from 'ws';
 import { PORT } from "./constants";
+import { router } from "./routes/index";
 
 const app = express()
 
@@ -13,3 +14,4 @@ const httpServer = app.listen(PORT, () => {
 
 const wss = new WebSocketServer({server: httpServer})
 
+app.use("/api/v1", router);
