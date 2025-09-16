@@ -7,7 +7,10 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "esnext",
+    // "module": "commonjs",
+    "module": "node16",
+"moduleResolution": "node16",
+"verbatimModuleSyntax": true,
   "target": "esnext",
   "esModuleInterop": true,
   "allowSyntheticDefaultImports": true,
@@ -36,7 +39,7 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
+    // "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
