@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  // output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -14,7 +7,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id   String   @id @default(uuid())
+  id       String   @id @default(uuid())
+  username String   @unique
+  email    String?  @unique
+  phone    String?  @unique
+  roomId   String   @unique
+  rooms    RoomMember[]
+  messages Message[]
+}
+
+model Room {
+  id             String       @id @default(uuid())
+  name           String?      // if null → it's a 1-to-1 chat, else → group name
+  isGroup        Boolean      @default(false)
+  userId         String        @unique @map("User")
+  creationTime   DateTime     @default(now())
+  lastUpdateTime DateTime     @updatedAt
+  members  RoomMember[]
+  messages Message[]
+}
+
+model RoomMember {
+  id     String @id @default(uuid())
+  room   Room   @relation(fields: [roomId], references: [id])
+  roomId String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  joinedAt DateTime @default(now())
+}
+
+model Message {
+  id          String      @id @default(uuid())
+  room        Room        @relation(fields: [roomId], references: [id])
+  roomId      String
+  sender      User        @relation(fields: [senderId], references: [id])
+  senderId    String
+  timestamp   DateTime    @default(now())
+  messageBody String
+  media       String?     // base64 or link
+  type        MessageType @default(text)
+  readReceipt Boolean     @default(false)
+}
+
+enum MessageType {
+  text
+  image
+  video
+  document
+  audio
 }
