@@ -1,4 +1,4 @@
-import { handleDisconnect, handleMessage } from "./handler.js";
+import { handleDisconnect, handleJoinRoom, handleLeaveRoom, handleMessage } from "./handler.js";
 import { handleRegister } from "./handler.js";
 
 export async function setUpWebSocket(wss: any) {
@@ -12,10 +12,13 @@ export async function setUpWebSocket(wss: any) {
             switch(parsedData.type) {
                 case 'register':
                     await handleRegister(ws, parsedData)
-                
                 case 'message':
                     await handleMessage(ws, parsedData)
-                // more cases to  be written 
+                // more cases to  be written
+                case 'leave':
+                    await handleLeaveRoom(ws, parsedData)
+                case 'join_room':
+                    await handleJoinRoom(ws, parsedData)
             }
         })
 

@@ -36,6 +36,7 @@ model RoomMember {
   userId String
 
   joinedAt DateTime @default(now())
+  @@unique([roomId, userId]) 
 }
 
 model Message {
