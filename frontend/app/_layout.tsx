@@ -1,24 +1,49 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import React, { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { useFrameworkReady } from '@/hooks/useFrameworkReady';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { WalletProvider } from '@/contexts/WalletContext';
+import { BountyProvider } from '@/contexts/BountyContext';
+import 'react-native-url-polyfill/auto';
+import { Buffer } from 'buffer';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+// @ts-ignore
+global.Buffer = global.Buffer || Buffer;
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  useFrameworkReady();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <AuthProvider>
+      <WalletProvider>
+        <BountyProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="bounty/[id]" />
+            <Stack.Screen name="task/[id]" />
+            <Stack.Screen name="task/submit" />
+            <Stack.Screen name="submission/[id]" />
+            <Stack.Screen name="create-bounty" />
+            <Stack.Screen name="settings" />
+            <Stack.Screen
+              name="modals/transaction"
+              options={{ presentation: 'modal' }}
+            />
+            <Stack.Screen
+              name="modals/wallet-selector"
+              options={{ presentation: 'modal' }}
+            />
+            <Stack.Screen
+              name="modals/file-upload"
+              options={{ presentation: 'modal' }}
+            />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="light" />
+        </BountyProvider>
+      </WalletProvider>
+    </AuthProvider>
   );
 }
