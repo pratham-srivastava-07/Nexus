@@ -1,0 +1,90 @@
+// schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             String   @id @default(cuid())
+  email          String?  @unique
+  walletAddress  String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  tasks          Task[]        @relation("TaskCreator")
+  submissions    Submission[]
+  disputes       Dispute[]     @relation("UserDisputes")
+}
+
+model Task {
+  id                String        @id @default(cuid())
+  title             String
+  description       String
+  category          String?
+  deadline          DateTime?
+  bountyAmount      Decimal        // In SOL or SPL tokens
+  bountyMint        String         // Token mint address
+  vaultPda          String?        // PDA for escrow vault
+  createTx          String?        // On-chain transaction ref
+  status            TaskStatus     @default(OPEN)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  creatorId         String
+  creator           User           @relation("TaskCreator", fields: [creatorId], references: [id])
+
+  submissions       Submission[]
+  disputes          Dispute[]
+}
+
+model Submission {
+  id                String         @id @default(cuid())
+  taskId            String
+  userId            String
+  message           String?
+  proofUrls         String[]       // Links to backend-hosted files
+  status            SubmissionStatus @default(PENDING)
+  submittedAt       DateTime       @default(now())
+  decisionAt        DateTime?
+
+  task              Task           @relation(fields: [taskId], references: [id])
+  user              User           @relation(fields: [userId], references: [id])
+}
+
+model Dispute {
+  id           String      @id @default(cuid())
+  taskId       String
+  raisedById   String
+  reason       String
+  status       DisputeStatus @default(OPEN)
+  createdAt    DateTime      @default(now())
+  resolvedAt   DateTime?
+
+  task         Task          @relation(fields: [taskId], references: [id])
+  raisedBy     User          @relation("UserDisputes", fields: [raisedById], references: [id])
+}
+
+enum TaskStatus {
+  OPEN
+  SUBMITTED
+  COMPLETED
+  DISPUTED
+  PAID
+  CANCELLED
+}
+
+enum SubmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum DisputeStatus {
+  OPEN
+  RESOLVED
+  REJECTED
+}

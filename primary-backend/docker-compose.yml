@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  primary-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: primary-backend:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
