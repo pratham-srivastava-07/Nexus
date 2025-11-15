@@ -41,6 +41,14 @@ model Task {
   disputes          Dispute[]
 }
 
+model Bounty {
+  id                String     @id @default(uuid())
+  title             String    
+  description       String
+  category          String
+  amount            String
+}
+
 model Submission {
   id                String         @id @default(cuid())
   taskId            String

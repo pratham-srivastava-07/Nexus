@@ -19,7 +19,7 @@ export default function OnboardingScreen() {
             <View style={styles.iconContainer}>
               <Rocket size={64} color={colors.accent.primary} />
             </View>
-            <Text style={styles.title}>Bounty dApp</Text>
+            <Text style={styles.title}>Nexus</Text>
             <Text style={styles.subtitle}>
               Decentralized marketplace for bounties on Solana
             </Text>

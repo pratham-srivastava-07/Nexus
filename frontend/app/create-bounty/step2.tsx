@@ -40,6 +40,7 @@ export default function CreateBountyStep2() {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Button
+          // style={{textAlign: "start"}}
           title=""
           onPress={() => router.back()}
           variant="text"
@@ -105,6 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: spacing.lg,
+    marginTop: 20
   },
   progress: {
     ...typography.caption,

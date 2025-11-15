@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: spacing.lg,
+    marginTop: 10
   },
   progress: {
     ...typography.caption,

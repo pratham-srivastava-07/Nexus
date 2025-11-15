@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { apiRouter } from './routes';
+import { apiRouter, authRouter } from './routes';
 import logger from './lib/logger';
 
 dotenv.config();
@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/v1', apiRouter);
+app.use("/auth/v1", authRouter);
 
 // 404 handler
 app.use((req, res) => {

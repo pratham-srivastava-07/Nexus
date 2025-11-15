@@ -65,7 +65,7 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Featured Bounties</Text>
+          <Text style={styles.sectionTitle}>Nexus Bounties</Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}

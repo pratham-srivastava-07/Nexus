@@ -1,30 +1,30 @@
 export const colors = {
   background: {
-    primary: '#0a0e27',
-    secondary: '#141b3d',
-    card: '#1a2347',
-    overlay: 'rgba(10, 14, 39, 0.95)',
+    primary: '#000000',           // Pure black base (like screenshot)
+    secondary: '#1a1a1a',         // Dark gray for cards/elevation
+    card: '#252525',              // Slightly lighter for card surfaces
+    overlay: 'rgba(0, 0, 0, 0.92)', // Deep black overlay with high opacity
   },
   accent: {
-    primary: '#00ff88',
-    secondary: '#00d4ff',
-    gradient: ['#00ff88', '#00d4ff'],
+    primary: '#00d4ff',           // Cool cyan blue
+    secondary: '#00b8e6',         // Deeper cyan for variation
+    gradient: ['#00d4ff', '#0099cc'], // Cyan to deep blue gradient
   },
   text: {
-    primary: '#ffffff',
-    secondary: '#a0aec0',
-    muted: '#718096',
-    accent: '#00ff88',
+    primary: '#ffffff',           // Pure white for main text (high contrast)
+    secondary: '#b4b4b4',         // Medium gray for secondary text
+    muted: '#6e6e6e',            // Darker gray for muted/disabled text
+    accent: '#00d4ff',           // Cyan for accent text
   },
   border: {
-    default: '#2d3748',
-    focus: '#00ff88',
+    default: '#2a2a2a',          // Subtle dark borders
+    focus: '#00d4ff',            // Cyan for focus states
   },
   status: {
-    success: '#00ff88',
-    error: '#ff4757',
-    warning: '#ffa502',
-    info: '#00d4ff',
+    success: '#00ff88',          // Keep your success green
+    error: '#ff4757',            // Keep your error red
+    warning: '#ffa502',          // Keep your warning orange
+    info: '#00d4ff',             // Cyan for info (matches theme)
   },
 };
 
