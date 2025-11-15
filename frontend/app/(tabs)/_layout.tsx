@@ -2,6 +2,10 @@ import React from 'react';
 import { Tabs } from 'expo-router';
 import { colors } from '@/constants/colors';
 import { Home, Briefcase, Plus, Wallet, User } from 'lucide-react-native';
+import { Buffer } from 'buffer';
+
+// @ts-ignore
+global.Buffer = global.Buffer || Buffer;
 
 export default function TabLayout() {
   return (

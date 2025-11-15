@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import { router } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { Buffer } from 'buffer';
+
+// @ts-ignore
+global.Buffer = global.Buffer || Buffer;
 
 export default function Index() {
   const { isAuthenticated, isLoading } = useAuth();

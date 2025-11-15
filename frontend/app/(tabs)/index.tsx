@@ -20,6 +20,10 @@ import { colors, typography } from '@/constants/colors';
 import { spacing } from '@/constants/layout';
 import { formatCurrency, truncateAddress } from '@/utils/solana';
 import { Plus } from 'lucide-react-native';
+import { Buffer } from 'buffer';
+
+// @ts-ignore
+global.Buffer = global.Buffer || Buffer;
 
 export default function HomeScreen() {
   const { bounties, isLoading, fetchBounties } = useBounty();
